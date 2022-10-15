@@ -1,0 +1,83 @@
+site_name: C.K.F.A Docs
+extra_css: [./assets/index.css]
+
+repo_url: https://dev.azure.com/bdsdatasolution/BDS.FundsPortfolio
+repo_name: BDS.FundsPortfolio
+
+extra:
+  generator: false
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+theme:
+  name: material
+  logo: assets/logo-bds.png
+  favicon: assets/favicon.png
+  features:
+    - navigation.expand
+    - navigation.top
+    - announce.dismiss
+  font:
+    text: Roboto
+
+  palette:
+    - media: "(prefers-color-scheme: light)" 
+      scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)" 
+
+      scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+nav:
+    - Inicio: 'index.md'
+    
+    - Design Patterns:
+      - API C# DDD: '1.0/estrutura-api-csharp.md'
+    
+    - Presets de Código: 
+      - Python:
+        - Database-related: 'python/python-database-related.md'
+      
+      - C#:
+        - Database-related: 'C#/csharp-database-related.md'
+      
+      - Java:
+        - Database-related: 'Java/java-database-related.md'
+      
+      - Node.js:
+        - Database-related: 'Node.js/nodejs-database-related.md'
+      
+      - React:
+        - Database-relat ed: 'React/react-database-related.md'
+      
+      - ReactNative:
+        - Database-related: 'ReactNative/reactnative-database-related.md'
+      
+      - Docker:
+        - Comandos Primordiais: 'Docker/docker-main-comands.md'
+    
+    - Tecnologias:
+      - C#:
+        - OOP: 'index.md'
+        - API: 'index.md'
+     
+      - Python: 'index.md'
+     
+      - Java: 'index.md'
+     
+      - React: 'index.md'
+     
+      - Node.js: 'index.md'
+     
+      - Docker: 'index.md'
+     
+      - SQL Server: 'index.md'

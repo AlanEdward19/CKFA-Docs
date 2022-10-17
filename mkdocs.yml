@@ -7,7 +7,7 @@ repo_name: C.K.F.A Docs
 extra:
   alternate:
     - name: English
-      link: https://alanedward19.github.io/CKFA-Docs/ 
+      link: https://alanedward19.github.io/CKFA-Docs-English/ 
       lang: en
     
     - name: Português
@@ -23,8 +23,8 @@ markdown_extensions:
 
 theme:
   name: material
-  logo: assets/logo-bds.png
-  favicon: assets/favicon.png
+  logo: assets/logo-cfka.png
+  favicon: assets/favicon-cfka.png
   features:
     - navigation.expand
     - navigation.top
@@ -98,7 +98,7 @@ nav:
         - Database-related: 'Node.js/nodejs-database-related.md'
       
       - React:
-        - Database-relat ed: 'React/react-database-related.md'
+        - Database-related: 'React/react-database-related.md'
       
       - ReactNative:
         - Database-related: 'ReactNative/reactnative-database-related.md'
@@ -108,8 +108,8 @@ nav:
     
     - Tecnologias:
       - C#:
-        - OOP: 'index.md'
-        - API: 'index.md'
+        - OOP: ''
+        - API: ''
         - Entity Framework: ''
         - Dapper: ''
         - AutoMapper : ''
@@ -119,13 +119,13 @@ nav:
         - PYODBC: ''
         - Pandas: ''
      
-      - Java: 'index.md'
+      - Java: ''
      
-      - React: 'index.md'
+      - React: ''
      
-      - Node.js: 'index.md'
+      - Node.js: ''
      
-      - Docker: 'index.md'
+      - Docker: ''
      
       - SQL Server:
         - Criação de Index: 'SQL/create-index.md'

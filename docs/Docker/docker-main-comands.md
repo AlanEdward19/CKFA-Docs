@@ -30,7 +30,7 @@ ex: docker run redis
 Um comando secundario a esse, seria especificar a porta antes de executar o comando. utilizando o *_-p_*
 
 ```docker
-docker -p 6379:6379 run redis
+docker run -p 6379:6379 redis
 ```
 
 ## 1.2 Enviar uma imagem

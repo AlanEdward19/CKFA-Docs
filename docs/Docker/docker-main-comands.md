@@ -1,26 +1,45 @@
-# Estruturação API C# _DDD (*Domain Driver Development*)_ (EF Core)
+# Principais Comandos do Docker
 
-[O que é DDD](https://www.zup.com.br/blog/domain-driven-design-ddd)
+## O que é Docker?
+Docker é um sistema de virtualização não convencional, diferente de uma VM (_virtual machine_), docker utiliza o conceito de Conteiners para isolar um ambiente de desenvolvimento e suas dependencias.  
 
-![EstruturaDomain](../assets/img/Estrutura.png)
+[O que é container?]("https://www.alura.com.br/artigos/comecando-com-docker?gclid=CjwKCAjw-rOaBhA9EiwAUkLV4n74X9KVsgiQ3_oKylhYbcoFbw_jjs0DP1ybj6L6BlFnmgA7X8-5dhoC-XgQAvD_BwE")
 
-## 1.0 Estrutura
-A API é repartida em 6 pastas, sendo elas:
+![LogoDocker](../assets/img/DockerLogo.png)
 
-### 1.1 Domain (Domínio)
-É o coração do projeto e deve apresentar o negócio.  
+## 1.0 Adquirir uma imagem
+Para podermos acessar uma imagem, utilizaremos os seguinte comando:  
 
-Neste podemos armazenar _repositories_ (incluindo suas interfaces), entidades (_*models*_), classes de serviços, Validações entre outros.
+Por padrão o docker faz _pull_ de suas imagens através do docker hub
 
-### 1.2 Infra (Infraestrutura)
-Cuida do suporte geral as demais implementações e em geral possui uma outra camada que se comunica com todas as camadas do projeto.  
+```docker
+docker pull "Image name"
 
-Neste criamos os _adapters_, _data contexts_, _providers_ e _queries_, Persistencias, Mapeamentos entre outros.  
+ex: docker pull redis
+```
 
-### 1.3 Presentation (Apresentação)
-Cuida da interação com que vai usar a aplicação.  
+## 1.1 Rodar uma imagem
+Para podermos rodar uma imagem, utilizaremos os seguinte comando:  
 
-Neste teremos acesso á um projeto Mobile, Web, Web API, Desktop entre outros.  
+```docker
+docker run "Image name"
 
-Podemos nele criar arquivos de configuração (swaggerGen, Controllers, Database-related, Middleware), Controllers em si, Middleware em si, Filtros entre outros.  
+ex: docker run redis
+```
 
+Um comando secundario a esse, seria especificar a porta antes de executar o comando. utilizando o *_-p_*
+
+```docker
+docker -p 6379:6379 run redis
+```
+
+## 1.2 Enviar uma imagem
+Para podermos enviar uma imagem, utilizaremos os seguinte comando:  
+
+```docker
+docker pull "Image name"
+
+ex: docker pull redis
+```
+
+Este comando é utilizado para enviar uma imagem para o repositorio docker hub.

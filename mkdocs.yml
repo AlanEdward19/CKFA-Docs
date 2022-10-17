@@ -1,11 +1,18 @@
 site_name: C.K.F.A Docs
 extra_css: [./assets/index.css]
 
-repo_url: https://dev.azure.com/bdsdatasolution/BDS.FundsPortfolio
-repo_name: BDS.FundsPortfolio
+repo_url: https://github.com/AlanEdward19/CKFA-Docs
+repo_name: C.K.F.A Docs
 
 extra:
-  generator: false
+  alternate:
+    - name: English
+      link: https://alanedward19.github.io/CKFA-Docs/ 
+      lang: en
+    
+    - name: Português
+      link: https://alanedward19.github.io/CKFA-Docs/
+      lang: pt
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -26,13 +33,15 @@ theme:
     text: Roboto
 
   palette:
-    - media: "(prefers-color-scheme: light)" 
+    - media: "(prefers-color-scheme: light)"
+      accent: purple
       scheme: default
       toggle:
         icon: material/toggle-switch-off-outline
         name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)" 
-
+    
+    - media: "(prefers-color-scheme: dark)"
+      accent: deep purple
       scheme: slate
       toggle:
         icon: material/toggle-switch
@@ -42,6 +51,38 @@ nav:
     
     - Design Patterns:
       - API C# DDD: '1.0/estrutura-api-csharp.md'
+      - Repository Pattern : '1.0/repository-pattern.md'
+      - MVC Pattern : '1.0/mvc-pattern.md'
+      - TDD Pattern : '1.0/tdd-pattern.md'
+
+      - Creational Pattern:
+        - Abstract Factory : '1.0/creational pattern/abstract-pattern.md'
+        - Builder : '1.0/creational pattern/builder-pattern.md'
+        - Factory Method : '1.0/creational pattern/factory-method-pattern.md'
+        - Prototype : '1.0/creational pattern/prototype-pattern.md'
+        - Singleton : '1.0/creational pattern/singleton-pattern.md'
+
+      - Structural Patterns:
+        - Adapter : '1.0/structural pattern/adapter-pattern.md'
+        - Bridge : '1.0/structural pattern/bridge-pattern.md'
+        - Composite : '1.0/structural pattern/composite-pattern.md'
+        - Decorator : '1.0/structural pattern/decorator-pattern.md'
+        - Facade : '1.0/structural pattern/facade-pattern.md'
+        - Flyweight : '1.0/structural pattern/flyweight-pattern.md'
+        - Proxy : '1.0/structural pattern/proxy-pattern.md'
+
+      - Behavioral Patterns:
+        - Chain of Resp : '1.0/behavioral pattern/chain-of-resp-pattern.md'
+        - Command : '1.0/behavioral pattern/command-pattern.md'
+        - Interpreter : '1.0/behavioral pattern/interpreter-pattern.md'
+        - Iterator : '1.0/behavioral pattern/iterator-pattern.md'
+        - Mediator : '1.0/behavioral pattern/mediator-pattern.md'
+        - Memento : '1.0/behavioral pattern/memento-pattern.md'
+        - Observer : '1.0/behavioral pattern/observer-pattern.md'
+        - State : '1.0/behavioral pattern/state-pattern.md'
+        - Strategy : '1.0/behavioral pattern/strategy-pattern.md'
+        - Template Method : '1.0/behavioral pattern/template-method-pattern.md'
+        - Visitor : '1.0/behavioral pattern/visitor-pattern.md'
     
     - Presets de Código: 
       - Python:
@@ -69,8 +110,14 @@ nav:
       - C#:
         - OOP: 'index.md'
         - API: 'index.md'
+        - Entity Framework: ''
+        - Dapper: ''
+        - AutoMapper : ''
      
-      - Python: 'index.md'
+      - Python:
+        - OOP: ''
+        - PYODBC: ''
+        - Pandas: ''
      
       - Java: 'index.md'
      
@@ -80,4 +127,10 @@ nav:
      
       - Docker: 'index.md'
      
-      - SQL Server: 'index.md'
+      - SQL Server:
+        - Criação de Index: 'SQL/create-index.md'
+        - Banco não relacional : 'SQL/non-relational-database.md'
+        - Banco relacional : 'SQL/relational-database.md'
+      
+      - Logica:
+        - Estrutura de dados: 'logic/data-structure.md'

@@ -1,11 +1,11 @@
-# Estruturação API C# _DDD (*Domain Driver Development*)_ (EF Core)
+# C# _DDD (*Domain Driver Development*)_
 
 [O que é DDD](https://www.zup.com.br/blog/domain-driven-design-ddd)
 
 ![EstruturaDomain](../assets/img/Estrutura.png)
 
 ## 1.0 Estrutura
-A API é repartida em 6 pastas, sendo elas:
+A API é repartida em 3 partes, sendo elas:
 
 ### 1.1 Domain (Domínio)
 É o coração do projeto e deve apresentar o negócio.  

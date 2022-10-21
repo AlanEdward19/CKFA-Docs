@@ -149,6 +149,10 @@ using (SqlCommand command = new SqlCommand(strBuilder.ToString(), _connection))
 ### 1.2 Via Entity Framework
 Nesta seção será demonstrado como fazer CRUD (Acronimo para Create, Read, Update, Delete), em uma Web API, utilizando Entity Framework Core.  
 
+Este codigo esta disponivel em: [EntityFrameworkKnowleadge](https://github.com/AlanEdward19/EntityFrameworkKnowleadge), e futuramente serão adicionados mais exemplos com entity, em outros tipos de aplicação.  
+
+Caso utilize o codigo acima, lembre-se de alterar a connectionString e criar novas migrations.
+
 #### 1.2.1 Requerimentos
 Para utilizar o que vêm a seguir, é necessario:  
   

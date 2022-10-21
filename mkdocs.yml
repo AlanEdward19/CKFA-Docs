@@ -113,6 +113,7 @@ nav:
         - Entity Framework: ''
         - Dapper: ''
         - AutoMapper : ''
+        - DTO (Data Transfer Object): ''
      
       - Python:
         - OOP: ''

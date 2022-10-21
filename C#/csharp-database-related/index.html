@@ -1004,6 +1004,48 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#122-abrir-conexao" class="md-nav__link">
+    1.2.2 Abrir conexão
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-selectall" class="md-nav__link">
+    1.2.3 SelectAll
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124-select" class="md-nav__link">
+    1.2.4 Select
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125-insert" class="md-nav__link">
+    1.2.5 Insert
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#126-update" class="md-nav__link">
+    1.2.6 Update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#127-delete" class="md-nav__link">
+    1.2.7 Delete
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1806,6 +1848,48 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#122-abrir-conexao" class="md-nav__link">
+    1.2.2 Abrir conexão
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-selectall" class="md-nav__link">
+    1.2.3 SelectAll
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124-select" class="md-nav__link">
+    1.2.4 Select
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125-insert" class="md-nav__link">
+    1.2.5 Insert
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#126-update" class="md-nav__link">
+    1.2.6 Update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#127-delete" class="md-nav__link">
+    1.2.7 Delete
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1976,9 +2060,145 @@
 </code></pre></div>
 <h3 id="12-via-entity-framework">1.2 Via Entity Framework</h3>
 <p>Nesta seção será demonstrado como fazer CRUD (Acronimo para Create, Read, Update, Delete), em uma Web API, utilizando Entity Framework Core.  </p>
+<p>Este codigo esta disponivel em: <a href="https://github.com/AlanEdward19/EntityFrameworkKnowleadge">EntityFrameworkKnowleadge</a>, e futuramente serão adicionados mais exemplos com entity, em outros tipos de aplicação.  </p>
+<p>Caso utilize o codigo acima, lembre-se de alterar a connectionString e criar novas migrations.</p>
 <h4 id="121-requerimentos">1.2.1 Requerimentos</h4>
 <p>Para utilizar o que vêm a seguir, é necessario:  </p>
 <p>A instalação dos seguintes pacotes NuGet: Entity Framework Core for SQL Server.</p>
+<h4 id="122-abrir-conexao">1.2.2 Abrir conexão</h4>
+<p>Por padrão toda conexão feita com Entity Framework Core, se baseia em um arquivo context, onde la teremos variaveis
+<em>DbSet</em> seguidas de um tipo (classe), que seriam sua referencia a alguma classe criada que representa uma tabela do banco, uma ja existente ou a ser criada.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">namespace</span><span class="w"> </span><span class="nn">EntityFrameworkKnowleadge.Data</span><span class="w"></span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">FootballLeagueDbContext</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">DbContext</span><span class="w"></span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">        </span><span class="k">protected</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">OnConfiguring</span><span class="p">(</span><span class="n">DbContextOptionsBuilder</span><span class="w"> </span><span class="n">optionsBuilder</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">        </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">            </span><span class="n">optionsBuilder</span><span class="w"></span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">                </span><span class="p">.</span><span class="n">UseSqlServer</span><span class="p">(</span><span class="w"></span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">                    </span><span class="s">@&quot;Data Source=LAPTOP-J71CJ04F\SQLEXPRESS;Initial Catalog=EntityTesteBD;Integrated Security=True&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">//Ta assim para testes, pessima pratica</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">                </span><span class="cm">/*.LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name}, LogLevel.Information)</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="cm">                .EnableSensitiveDataLogging()*/</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="n">DbSet</span><span class="p">&lt;</span><span class="n">Team</span><span class="p">&gt;</span><span class="w"> </span><span class="n">Teams</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="n">DbSet</span><span class="p">&lt;</span><span class="n">League</span><span class="p">&gt;</span><span class="w"> </span><span class="n">Leagues</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Aqui, como o exemplo de conexão está sendo via <em>Console Application</em>, passamos a <em>connectionString</em> diretamente no código, porem em um exemplo real, ela não deveria estar ali, por medidas de segurança.  </p>
+<p>Em uma API, ela estaria localizada no userSecrets, ou até mesmo appsettings.json.  </p>
+<p>Para darmos continuidade e podermos criar nossos <em>DbSet</em>, devemos criar as classes referentes ao mesmos.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">namespace</span><span class="w"> </span><span class="nn">EntityFrameworkKnowleadge.Domain</span><span class="w"></span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Team</span><span class="w"></span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">LeagueId</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="n">League</span><span class="w"> </span><span class="n">League</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PrintData</span><span class="p">(</span><span class="n">League</span><span class="w"> </span><span class="n">league</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">        </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">            </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;\nTime com Indentificação: {Id}&quot;</span><span class="w"> </span><span class="p">+</span><span class="w"></span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">                              </span><span class="s">$&quot;\n\t Nome: {Name}&quot;</span><span class="w"> </span><span class="p">+</span><span class="w"></span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">                              </span><span class="s">$&quot;\n\t Pertence a liga: {league.Name}&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Veja que aqui, estamos passando o nome das colunas com conotação de sintaxe para C#, porem caso o banco não esteja dessa forma, podemos manter a sintaxe de C#, porem passar uma <em>Data Annotation</em> para mostrarmos ao Entity qual o nome real da coluna no SQL.  </p>
+<p>O Entity Framework por padrão, consegue identificar chaves primarias e estrangeiras, através do nome da variavel conter o nome Id, em alguma parte de seu nome, porém quando este não é o caso, podemos passar <em>Data Annotation</em> para especificarmos qual a chave primaria da tabela.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Team</span><span class="w"></span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">        </span><span class="na">[Key]</span><span class="w"></span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">        </span><span class="na">[Column(&quot;Nome Real da coluna&quot;)]</span><span class="w"></span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">        </span><span class="na">[Column(&quot;Nome Real da coluna&quot;)]</span><span class="w"></span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">        </span><span class="na">[Column(&quot;Nome Real da coluna&quot;)]</span><span class="w"></span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">LeagueId</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">        </span><span class="k">public</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="n">League</span><span class="w"> </span><span class="n">League</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// &lt;---- Esta variavel é utilizada para dizermos ao entity que a variavel acima é uma referencia a uma chave estrangeira.</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h4 id="123-selectall">1.2.3 SelectAll</h4>
+<p>No código a seguir, implementaremos um selectAll (trazer todos os dados, sem especificação)</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">GeneralTeamSearch</span><span class="p">()</span><span class="w"></span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">        </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">teams</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">Teams</span><span class="p">.</span><span class="n">ToListAsync</span><span class="p">();</span><span class="w"></span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">            </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">team</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">teams</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">            </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">                </span><span class="kt">var</span><span class="w"> </span><span class="n">league</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">Leagues</span><span class="p">.</span><span class="n">FirstOrDefaultAsync</span><span class="p">(</span><span class="n">league</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">league</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">team</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">                </span><span class="n">team</span><span class="p">.</span><span class="n">PrintData</span><span class="p">(</span><span class="n">league</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">            </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h4 id="124-select">1.2.4 Select</h4>
+<p>No código a seguir, implementaremos um select comum, utilizando uma fonte de pesquisa.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="n">Task</span><span class="p">&lt;</span><span class="n">Team</span><span class="p">&gt;</span><span class="w"> </span><span class="n">NameTeamSearch</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">        </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">team</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">Teams</span><span class="p">.</span><span class="n">FirstOrDefaultAsync</span><span class="p">(</span><span class="n">team</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">team</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">league</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">Leagues</span><span class="p">.</span><span class="n">FirstOrDefaultAsync</span><span class="p">(</span><span class="n">league</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">league</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">team</span><span class="p">.</span><span class="n">LeagueId</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">            </span><span class="n">team</span><span class="p">.</span><span class="n">PrintData</span><span class="p">(</span><span class="n">league</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">team</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h4 id="125-insert">1.2.5 Insert</h4>
+<p>No código a seguir, implementaremos um insert dentro da tabela de times.  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">insertNewTeam</span><span class="p">(</span><span class="n">Team</span><span class="w"> </span><span class="n">team</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">        </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">            </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">Teams</span><span class="p">.</span><span class="n">AddAsync</span><span class="p">(</span><span class="n">team</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">            </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;Inserindo novo time de nome: {team.Name}\nId do Time: {team.LeagueId}&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h4 id="126-update">1.2.6 Update</h4>
+<p>No código a seguir, implementaremos um update dentro da tabela de times. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">UpdateTeam</span><span class="p">(</span><span class="n">Team</span><span class="w"> </span><span class="n">teamReference</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">        </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">            </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Insira o novo nome deste time&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">newName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span><span class="w"></span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">            </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Insira o Id da liga que este time pertencerá&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">leagueID</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">());</span><span class="w"></span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">league</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">Leagues</span><span class="p">.</span><span class="n">FirstOrDefaultAsync</span><span class="p">(</span><span class="n">league</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">league</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">teamReference</span><span class="p">.</span><span class="n">LeagueId</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">            </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;Valores antigos desse time:&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">            </span><span class="n">teamReference</span><span class="p">.</span><span class="n">PrintData</span><span class="p">(</span><span class="n">league</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">            </span><span class="n">teamReference</span><span class="p">.</span><span class="n">Name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">newName</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="w">            </span><span class="n">teamReference</span><span class="p">.</span><span class="n">LeagueId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">leagueID</span><span class="p">;</span><span class="w"></span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">            </span><span class="n">league</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">Leagues</span><span class="p">.</span><span class="n">FirstOrDefaultAsync</span><span class="p">(</span><span class="n">league</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">league</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">teamReference</span><span class="p">.</span><span class="n">LeagueId</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="w">            </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;Novos valores para esse time:&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="w">            </span><span class="n">teamReference</span><span class="p">.</span><span class="n">PrintData</span><span class="p">(</span><span class="n">league</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="w">            </span><span class="n">_context</span><span class="p">.</span><span class="n">Teams</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">teamReference</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h4 id="127-delete">1.2.7 Delete</h4>
+<p>No código a seguir, implementaremos um delete dentro da tabela de times.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">DeleteTeam</span><span class="p">(</span><span class="n">Team</span><span class="w"> </span><span class="n">teamReference</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">        </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">league</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">Leagues</span><span class="p">.</span><span class="n">FirstOrDefaultAsync</span><span class="p">(</span><span class="n">league</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="n">league</span><span class="p">.</span><span class="n">Id</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">teamReference</span><span class="p">.</span><span class="n">LeagueId</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">            </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;Valores antigos desse time:&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">            </span><span class="n">teamReference</span><span class="p">.</span><span class="n">PrintData</span><span class="p">(</span><span class="n">league</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">            </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Deletando do banco&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">            </span><span class="n">_context</span><span class="p">.</span><span class="n">Teams</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">teamReference</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
 <h3 id="13-via-dapper">1.3 Via Dapper</h3>
 <p>Nesta seção será demonstrado como fazer CRUD (Acronimo para Create, Read, Update, Delete), em uma Web API, utilizando Dapper.  </p>
 <h4 id="131-requerimentos">1.3.1 Requerimentos</h4>

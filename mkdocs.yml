@@ -48,12 +48,13 @@ theme:
         name: Switch to light mode
 nav:
     - Inicio: 'index.md'
+    - Alterações: 'changelog.md'
     
     - Design Patterns:
-      - API C# DDD: '1.0/estrutura-api-csharp.md'
+      - DDD: '1.0/ddd-patern.md'
       - Repository Pattern : '1.0/repository-pattern.md'
-      - MVC Pattern : '1.0/mvc-pattern.md'
-      - TDD Pattern : '1.0/tdd-pattern.md'
+      - MVC : '1.0/mvc-pattern.md'
+      - TDD : '1.0/tdd-pattern.md'
 
       - Creational Pattern:
         - Abstract Factory : '1.0/creational pattern/abstract-pattern.md'
@@ -135,3 +136,5 @@ nav:
       
       - Logica:
         - Estrutura de dados: 'logic/data-structure.md'
+      
+      - Microserviços: ''

@@ -153,6 +153,13 @@ Este codigo esta disponivel em: [EntityFrameworkKnowleadge](https://github.com/A
 
 Caso utilize o codigo acima, lembre-se de alterar a connectionString e criar novas migrations.
 
+OBS: Em casos de retorno de muitos dados, podemos utilizar a função de _no tracking_ do EF Core, para poupar o framework de ter que fazer rastreamento de todas as querys, podemos desabilitar essa função, e com isso aumentar performance
+do processo. Ex:
+
+```c#
+var no tracking = await _context.TABELA.AsNoTracking().FirstOrDefaultAsync();  //poderia utilizar toListAsync tbm ou qlqr outro metodo de finalizar.  
+```
+
 #### 1.2.1 Requerimentos
 Para utilizar o que vêm a seguir, é necessario:  
   
@@ -316,6 +323,229 @@ public async void DeleteTeam(Team teamReference)
             Console.WriteLine("Deletando do banco");
 
             _context.Teams.Remove(teamReference);
+        }
+```
+
+#### 1.2.8 Relações
+
+##### 1.2.8.1 Relações 1 para muitos
+Por padrão o EF Core, segue uma nomeclatura para relações entre tabelas, por exemplo automaticamente por denominar uma variavel (em uma classe) de Id, ele ja consegue reconhecer que se trata de uma chave primaria, assim como tambem o nome de alguma tabela seguida de Id (para chaves estrangeiras), por boas praticas quando vamos montar uma relação de chave estrangeira, referenciamos a tabela com um modificador virtual, exemplo abaixo.
+
+1 para muitos:
+```c#
+ public class Team
+    {
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int LeagueId { get; set; }
+        public virtual League League { get; set; }
+
+    }
+```
+
+Muitos para 1:
+```c#
+ public class League
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<Team> Teams { get; set; }
+    }
+```
+
+##### 1.2.8.2 Relações muitos para muitos
+Em casos onde uma tabela faz referencia de muitos dados, de uma mesma tabela, referenciamos a mesma como uma relação de muitas para muitas, segue o exemplo:
+
+```c#
+public class Match : BaseDomainObject
+    {
+        public int HomeTeamId { get; set; }
+        public virtual Team HomeTeam { get; set; }
+        public int AwayTeamId { get; set; }
+        public virtual Team AwayTeam { get; set; }
+
+        public DateTime Date { get; set; }
+    }
+```
+
+Nesta classe, ela referencia a varios times, de duas maneiras distintas, sendo eles jogos que o time era o da casa, e jogos que eles eram convidados.
+
+Por conta desta alteração na relação das tabelas, foram modificadas as classes anteriores, e agora estão:
+
+```c#
+public class Team : BaseDomainObject
+    {
+
+        public string Name { get; set; }
+        public int LeagueId { get; set; }
+        public virtual League League { get; set; }
+
+        public virtual List<Match> HomeMatches { get; set; }
+        public virtual List<Match> AwayMatches { get; set; }
+
+    }
+```
+
+```c#
+ public class League : BaseDomainObject
+    {
+
+        public string Name { get; set; }
+        public List<Team> Teams { get; set; }
+    
+    }
+```
+
+Ambas as classes de Times e Ligas, agora herdam de uma classe de objetoBasico, que tem intuito de possuir todos os campos padrão das tabelas, como por exemplo Id
+
+##### 1.2.8.3 Relações 1 para 1
+Para exemplificar a relação de um para um, iremos criar um exemplo, onde uma classe de Treinador (Coach), será criada, onde um Time possuí um Treinador, e um Treinador treina somente um Time.
+
+Codigo da classe do Treinador:
+
+```c#
+ public class Coach : BaseDomainObject
+    {
+        public string Name { get; set; }
+        public int? TeamId { get; set; }
+        public virtual Team Team { get; set; }
+    }
+```
+
+E por consequencia, devemos referenciar esse treinador na classe de Times:
+
+```c#
+public class Team : BaseDomainObject
+    {
+
+        public string Name { get; set; }
+        public int LeagueId { get; set; }
+        public virtual League League { get; set; }
+        public virtual Coach  Coach { get; set; }
+
+        public virtual List<Match> HomeMatches { get; set; }
+        public virtual List<Match> AwayMatches { get; set; }
+    
+    }
+```
+
+E tambem devemos referenciar essa nova tabela em nosso DbContext, para quando rodarmos a migration, essa tabela e suas relações serem alteradas de maneira correta.
+
+```c#
+public DbSet<Coach> Coaches { get; set; }
+```
+
+#### 1.2.9 Procedures
+A ser add
+
+#### 1.2.10 Raw SQL
+Podemos mesmo utilizando _EF Core_, fazer uso de queries passadas manualmente, segue exemplo:
+
+Caso sabemos o tipo que será retornado, e queremos *exatamente*, como está na model:
+
+```c#
+public async Task<List<League>> SearchLeagueByNameRawSql(string name)
+        {
+            var league = await _context.Leagues.FromSqlRaw($"select * from league where name = '{name}'").ToListAsync();
+            /* Maneira incorreta, pois desta forma estamos tirando a parametrização, e ficamos suscetíveis a sql injections */
+
+            var league2 = await _context.Leagues.FromSqlRaw("select * from league where name = {0}", name).ToListAsync();
+            /* Maneira correta, pois desta forma estamos inserindo a parametrização*/
+
+            var league3 = await _context.Leagues.FromSqlInterpolated($"select * from league where name = {name}").ToListAsync();
+            /* Outra forma de utilizarmos query SQL, com entity framework, desta forma ele automaticamente parametriza os valores para nós*/
+
+
+            return league;
+        }
+```
+
+No exemplo acima fizemos uso das funções _SqlRaw_ e _SqlInterpolated_, suas diferenças são, que utilizando a primeira forma, devemos passar a parametrização, nos mesmos, afim de evitar possiveis ataques de _Sql injection_, já a segunda opção, ja faz essa trabalho para nós.
+
+Caso sabemos o tipo que será retornado, porém queremos menos colunas, ou até mesmo nem sabemos o que será retornado (sem ter uma model feita para ele):  
+
+```c#
+
+```
+
+#### 1.2.11 Manipulando banco
+A ser add
+
+#### 1.2.12 Eager Loading
+Quando necessitamos retornar dados, que envolvem multiplas tabelas (joins), precisamos fazer o _Eager Loading_, basicamente _joins_, onde o *_EF core_* consegue fazer automaticamente, somente incluindo o .Include(lambda expression), o Include deve ser posicionado antes de qualquer comando de retorno.
+
+Ex: Retornar informação de qual liga pertence tal time:
+
+Sem Eager Loading
+```c#
+public async void GeneralTeamSearch()
+        {
+            var teams = await _context.Teams.ToListAsync();
+
+            foreach (var team in teams)
+            {
+                var league = await _context.Leagues.Where(league => league.Id == team.LeagueId).FirstOrDefaultAsync();
+                team.PrintData(league);
+            }
+        }
+```
+
+Com Eager Loading
+```c#
+public async void GeneralTeamSearch()
+        {
+            var teams = await _context.Teams.Include(teamProperty => teamProperty.League).ToListAsync();
+
+            foreach (var team in teams)
+            {
+                team.PrintData();
+            }
+        }
+```
+
+Eager Loading com multiplas referencias (_Gran Children related record_), é reservado pela palavra  _Then Include_.
+```c#
+public async void GetTeamsWithMatchesAndOpponents()
+        {
+            var teams = await _context.Teams.Include(teamProperty => teamProperty.AwayMatches).ThenInclude(teamProperty => teamProperty.HomeTeam).ToListAsync();
+
+            foreach (var team in teams)
+            {
+                team.PrintData(); // Visto que necessitamos atualizar o metodo PrintData para retornar as novas informações destes joins
+            }
+        }
+```
+
+Tambem podemos utilizar diversos Includes:
+```c#
+public async void GetTeamsWithMatchesAndOpponents()
+        {
+            var teams = 
+            await _context.Teams.Include(teamProperty => teamProperty.AwayMatches).ThenInclude(teamProperty => teamProperty.HomeTeam)
+            .Include(teamProperty => teamProperty.HomeMatches).ThenInclude(teamProperty => teamProperty.AwayTeam).ToListAsync();
+
+            foreach (var team in teams)
+            {
+                team.PrintData(); // Visto que necessitamos atualizar o metodo PrintData para retornar as novas informações destes joins
+            }
+        }
+```
+
+Exemplo Anterior retornando treinadores:
+```c#
+public async void GetTeamsWithMatchesAndOpponents()
+        {
+            var teams = 
+            await _context.Teams
+            .Include(teamProperty => teamProperty.AwayMatches).ThenInclude(teamProperty => teamProperty.HomeTeam).ThenInclude(teamProperty => teamProperty.Coach)
+            .Include(teamProperty => teamProperty.HomeMatches).ThenInclude(teamProperty => teamProperty.AwayTeam).ThenInclude(teamProperty => teamProperty.Coach)
+            .ToListAsync();
+
+            foreach (var team in teams)
+            {
+                team.PrintData(); // Visto que necessitamos atualizar o metodo PrintData para retornar as novas informações destes joins
+            }
         }
 ```
 

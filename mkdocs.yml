@@ -49,12 +49,16 @@ theme:
 nav:
     - Inicio: 'index.md'
     - Alterações: 'changelog.md'
+
+    - Development Patterns:
+      - TDD : '1.0/tdd-pattern.md'
+
+    - Architecture patterns:
+      - DDD: '1.0/ddd-patern.md'
+      - MVC : '1.0/mvc-pattern.md'
     
     - Design Patterns:
-      - DDD: '1.0/ddd-patern.md'
       - Repository: '1.0/repository-pattern.md'
-      - MVC : '1.0/mvc-pattern.md'
-      - TDD : '1.0/tdd-pattern.md'
 
       - Creational Pattern (Não implementado ainda):
         - Abstract Factory : '1.0/creational pattern/abstract-pattern.md'

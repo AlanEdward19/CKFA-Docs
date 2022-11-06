@@ -1,4 +1,4 @@
-# Repository Pattern
+# Repository
 Um dos padrões de projeto mais utilizado e conhecido no desenvolvimento de software. Esse padrão contribui no isolamento da camada de acesso a dados (DAL) com a camada de negócio, conhecida como camada de domínio.  
   
 Ele permite encapsulamento da lógica de acesso a dados, utilizando a injeção de dependencia e proporcionando uma visão mais orientada a objetos.  

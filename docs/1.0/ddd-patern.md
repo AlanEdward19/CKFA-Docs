@@ -18,7 +18,7 @@ Infraestrutura -> É como todos os dados inicialmente mantidos em entidades (vin
 Aplicação (Apresentação) -> Define os trabalhos que o software deve fazer e direciona os objetos de domínio expressivos para resolver problemas. As tarefas pelas quais esta camada é responsável são significativas para os negócios ou necessárias para a interação com as camadas do aplicativo de outros sistemas. Essa camada é mantida fina. Ele não contém regras de negócio nem conhecimento, mas apenas coordena o trabalho de tarefas e delegados para colaborações de objetos de domínio na próxima camada abaixo. Ele não tem um estado refletindo a situação de negócios, mas pode ter um estado que reflita o progresso de uma tarefa para o usuário ou o programa.
 
 
-### 1.1 Domain (Domínio) -> Camada de entidades e negocio
+### 2.1 Domain (Domínio) -> Camada de entidades e negocio
 É o coração do projeto e deve apresentar o negócio.  
 
 Esta camada é expressa e codificada como uma biblioteca de classes, com as entidades que capturam dados mais comportamentos.
@@ -29,14 +29,14 @@ Não deve possuir nenhuma dependencia direta, com nenhuma camada ou suas depende
 
 Neste podemos armazenar _repositories_ (incluindo suas interfaces), entidades (_*models*_) de maneira _POCO_, classes de serviços, Validações entre outros.
 
-### 1.2 Infra (Infraestrutura) -> Camada de persistencia de dados
+### 2.2 Infra (Infraestrutura) -> Camada de persistencia de dados
 Cuida do suporte geral as demais implementações e em geral possui uma outra camada que se comunica com todas as camadas do projeto.
 
 Esta camada, implementa e referencia a camada de dominio, para ter acesso as classes que nela estão presentes.
 
 Neste criamos os _adapters_, _data contexts_, _providers_ e _queries_, Persistencias, Mapeamentos, Implementação dos _repositories_, outras implementações usadas na camada de apresentação, como _logging_, _criptografia_ entre outros.  
 
-### 1.3 Presentation (Apresentação) -> Camada de Apresentação
+### 2.3 Presentation (Apresentação) -> Camada de Apresentação
 Cuida da interação com que vai usar a aplicação.  
 
 Basicamente, a “lógica de aplicativo” é onde você implementa todos os casos de uso que dependem de um determinado front-end. Por exemplo, a implementação relacionada a um serviço de API da Web.

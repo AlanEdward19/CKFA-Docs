@@ -23,8 +23,8 @@ markdown_extensions:
 
 theme:
   name: material
-  logo: assets/logo-cfka.png
-  favicon: assets/favicon-cfka.png
+  logo: assets/img/theMussaLogo.png
+  favicon: assets/img/theMussaLogo.png
   features:
     - navigation.expand
     - navigation.top
@@ -52,18 +52,18 @@ nav:
     
     - Design Patterns:
       - DDD: '1.0/ddd-patern.md'
-      - Repository Pattern : '1.0/repository-pattern.md'
+      - Repository: '1.0/repository-pattern.md'
       - MVC : '1.0/mvc-pattern.md'
       - TDD : '1.0/tdd-pattern.md'
 
-      - Creational Pattern:
+      - Creational Pattern (Não implementado ainda):
         - Abstract Factory : '1.0/creational pattern/abstract-pattern.md'
         - Builder : '1.0/creational pattern/builder-pattern.md'
         - Factory Method : '1.0/creational pattern/factory-method-pattern.md'
         - Prototype : '1.0/creational pattern/prototype-pattern.md'
         - Singleton : '1.0/creational pattern/singleton-pattern.md'
 
-      - Structural Patterns:
+      - Structural Patterns (Não implementado ainda):
         - Adapter : '1.0/structural pattern/adapter-pattern.md'
         - Bridge : '1.0/structural pattern/bridge-pattern.md'
         - Composite : '1.0/structural pattern/composite-pattern.md'
@@ -72,7 +72,7 @@ nav:
         - Flyweight : '1.0/structural pattern/flyweight-pattern.md'
         - Proxy : '1.0/structural pattern/proxy-pattern.md'
 
-      - Behavioral Patterns:
+      - Behavioral Patterns (Não implementado ainda):
         - Chain of Resp : '1.0/behavioral pattern/chain-of-resp-pattern.md'
         - Command : '1.0/behavioral pattern/command-pattern.md'
         - Interpreter : '1.0/behavioral pattern/interpreter-pattern.md'
@@ -86,28 +86,28 @@ nav:
         - Visitor : '1.0/behavioral pattern/visitor-pattern.md'
     
     - Presets de Código: 
-      - Python:
+      - Python (Não implementado ainda):
         - Database-related: 'python/python-database-related.md'
       
       - C#:
         - Database-related: 'C#/csharp-database-related.md'
       
-      - Java:
+      - Java (Não implementado ainda):
         - Database-related: 'Java/java-database-related.md'
       
-      - Node.js:
+      - Node.js (Não implementado ainda):
         - Database-related: 'Node.js/nodejs-database-related.md'
       
-      - React:
+      - React (Não implementado ainda):
         - Database-related: 'React/react-database-related.md'
       
-      - ReactNative:
+      - ReactNative (Não implementado ainda):
         - Database-related: 'ReactNative/reactnative-database-related.md'
       
       - Docker:
         - Comandos Primordiais: 'Docker/docker-main-comands.md'
     
-    - Tecnologias:
+    - Tecnologias (Não implementado ainda):
       - C#:
         - OOP: ''
         - API: ''

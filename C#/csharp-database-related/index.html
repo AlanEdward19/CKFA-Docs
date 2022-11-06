@@ -1123,6 +1123,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#1213-database-transaction" class="md-nav__link">
+    1.2.13 Database Transaction
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2043,6 +2050,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#1213-database-transaction" class="md-nav__link">
+    1.2.13 Database Transaction
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2531,6 +2545,54 @@ do processo. Ex:</p>
 <a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a><span class="w">            </span><span class="p">}</span><span class="w"></span>
 <a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a><span class="w">        </span><span class="p">}</span><span class="w"></span>
 </code></pre></div></p>
+<h4 id="1213-database-transaction">1.2.13 Database Transaction</h4>
+<p>Durante o processo de desenvolvimento, podemos encontrar casos, onde necessitamos fazer varias coisas ao mesmo tempo, até mesmo, salvar uma entidade para chamar-mos a mesma logo abaixo na mesma função, por questão de dependencia.  </p>
+<p>Para estes casos, podemos criar uma Transaction, onde dizemos para o banco de dados, faça isto, caso falhe não suba, segue o exemplo:  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="n">Task</span><span class="w"> </span><span class="nf">AddNewLeague</span><span class="p">()</span><span class="w"></span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">    </span><span class="k">try</span><span class="w"></span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w">    </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">transaction</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">BeginTransaction</span><span class="p">();</span><span class="w"> </span><span class="c1">// &lt;- Isto é como criamos a transaction</span>
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a><span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">league</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">League</span><span class="w"> </span><span class="p">(</span><span class="n">parametros</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="w">        </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">AddAsync</span><span class="p">(</span><span class="n">league</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a><span class="w">        </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">SaveChangesAsync</span><span class="p">(</span><span class="n">league</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>
+<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a><span class="w">        </span><span class="k">await</span><span class="w"> </span><span class="nf">AddTeamsWithLeague</span><span class="p">(</span><span class="n">league</span><span class="p">);</span><span class="w"> </span><span class="c1">// &lt;- Esta função depende que a liga exista, por isto criamos e salvamos a mesma antes.</span>
+<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>
+<a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a><span class="w">        </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">SaveChangesAsync</span><span class="p">();</span><span class="w"> </span><span class="c1">// &lt;- Supor que aqui falhe, teriamos sem a transaction, criado uma liga, porem a função acima poderia ter falhado por alguma razão. Ou até mesmo se não tivessemos salvado a liga, ela teria falhado por conta que a liga que passamos no parametro, não existe.</span>
+<a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a>
+<a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a><span class="w">        </span><span class="n">transaction</span><span class="p">.</span><span class="n">Commit</span><span class="p">();</span><span class="w"> </span><span class="c1">// &lt;- Caso nenhum erro ocorra, ai sim salvamos no banco de dados.</span>
+<a id="__codelineno-30-15" name="__codelineno-30-15" href="#__codelineno-30-15"></a>
+<a id="__codelineno-30-16" name="__codelineno-30-16" href="#__codelineno-30-16"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">exepction</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-30-17" name="__codelineno-30-17" href="#__codelineno-30-17"></a><span class="w">    </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-30-18" name="__codelineno-30-18" href="#__codelineno-30-18"></a><span class="w">        </span><span class="n">transaction</span><span class="p">.</span><span class="n">Rollback</span><span class="p">();</span><span class="w"> </span><span class="c1">// &lt;- Cancela as alterações</span>
+<a id="__codelineno-30-19" name="__codelineno-30-19" href="#__codelineno-30-19"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-30-20" name="__codelineno-30-20" href="#__codelineno-30-20"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Ou caso queremos salvar um <em>snapshot</em> de algo que fizemos, e outra parte do codigo falhou:  </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="n">Task</span><span class="w"> </span><span class="nf">AddNewLeague</span><span class="p">()</span><span class="w"></span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="w">    </span><span class="k">try</span><span class="w"></span>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">    </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">transaction</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">Database</span><span class="p">.</span><span class="n">BeginTransaction</span><span class="p">();</span><span class="w"> </span><span class="c1">// &lt;- Isto é como criamos a transaction</span>
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">league</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">League</span><span class="w"> </span><span class="p">(</span><span class="n">parametros</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="w">        </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">AddAsync</span><span class="p">(</span><span class="n">league</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="w">        </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">SaveChangesAsync</span><span class="p">(</span><span class="n">league</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>
+<a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a><span class="w">        </span><span class="k">await</span><span class="w"> </span><span class="n">transaction</span><span class="p">.</span><span class="n">CreateSavepointAsync</span><span class="p">(</span><span class="s">&quot;Nome do Savepoint&quot;</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>
+<a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a><span class="w">        </span><span class="k">await</span><span class="w"> </span><span class="nf">AddTeamsWithLeague</span><span class="p">(</span><span class="n">league</span><span class="p">);</span><span class="w"> </span><span class="c1">// &lt;- Esta função depende que a liga exista, por isto criamos e salvamos a mesma antes.</span>
+<a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a>
+<a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a><span class="w">        </span><span class="k">await</span><span class="w"> </span><span class="n">_context</span><span class="p">.</span><span class="n">SaveChangesAsync</span><span class="p">();</span><span class="w"> </span><span class="c1">// &lt;- Supor que aqui falhe, teriamos sem a transaction, criado uma liga, porem a função acima poderia ter falhado por alguma razão. Ou até mesmo se não tivessemos salvado a liga, ela teria falhado por conta que a liga que passamos no parametro, não existe.</span>
+<a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a>
+<a id="__codelineno-31-16" name="__codelineno-31-16" href="#__codelineno-31-16"></a><span class="w">        </span><span class="n">transaction</span><span class="p">.</span><span class="n">Commit</span><span class="p">();</span><span class="w"> </span><span class="c1">// &lt;- Caso nenhum erro ocorra, ai sim salvamos no banco de dados.</span>
+<a id="__codelineno-31-17" name="__codelineno-31-17" href="#__codelineno-31-17"></a>
+<a id="__codelineno-31-18" name="__codelineno-31-18" href="#__codelineno-31-18"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">exepction</span><span class="p">)</span><span class="w"></span>
+<a id="__codelineno-31-19" name="__codelineno-31-19" href="#__codelineno-31-19"></a><span class="w">    </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-31-20" name="__codelineno-31-20" href="#__codelineno-31-20"></a><span class="w">        </span><span class="n">transaction</span><span class="p">.</span><span class="n">RollbackToSavepointAsync</span><span class="p">(</span><span class="s">&quot;Nome do Savepoint&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// &lt;- Retorna o estado do banco de dados no momento que salvamos o savepoint</span>
+<a id="__codelineno-31-21" name="__codelineno-31-21" href="#__codelineno-31-21"></a><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<a id="__codelineno-31-22" name="__codelineno-31-22" href="#__codelineno-31-22"></a><span class="p">}</span><span class="w"></span>
+</code></pre></div>
 <h3 id="13-via-dapper">1.3 Via Dapper</h3>
 <p>Nesta seção será demonstrado como fazer CRUD (Acronimo para Create, Read, Update, Delete), em uma Web API, utilizando Dapper.  </p>
 <h4 id="131-requerimentos">1.3.1 Requerimentos</h4>

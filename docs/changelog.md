@@ -35,3 +35,13 @@ No dia 06/11/2022 foram adicionadas:
   
 -  Pagina de padrão de desenvolvimento TDD.  
 -  Informações sobre desenvolvimento _TDD_.  
+
+### 3.0.1 - 06/11/2022
+
+### Exemplos novos em c# database related
+
+Nesta data, foram adicionadas novos exemplos sobre o utilização do EF Core.  
+
+No dia 06/11/2022 foram adicionadas:  
+  
+-  Mais exemplos na pagina de C# Database related, com EF Core.  

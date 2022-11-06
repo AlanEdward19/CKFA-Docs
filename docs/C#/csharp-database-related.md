@@ -549,6 +549,61 @@ public async void GetTeamsWithMatchesAndOpponents()
         }
 ```
 
+#### 1.2.13 Database Transaction
+Durante o processo de desenvolvimento, podemos encontrar casos, onde necessitamos fazer varias coisas ao mesmo tempo, até mesmo, salvar uma entidade para chamar-mos a mesma logo abaixo na mesma função, por questão de dependencia.  
+
+Para estes casos, podemos criar uma Transaction, onde dizemos para o banco de dados, faça isto, caso falhe não suba, segue o exemplo:  
+
+```c#
+public async Task AddNewLeague()
+{
+    try
+    {
+        var transaction = _context.Database.BeginTransaction(); // <- Isto é como criamos a transaction
+        var league = new League (parametros);
+        await _context.AddAsync(league);
+        await _context.SaveChangesAsync(league);
+
+        await AddTeamsWithLeague(league); // <- Esta função depende que a liga exista, por isto criamos e salvamos a mesma antes.
+
+        await _context.SaveChangesAsync(); // <- Supor que aqui falhe, teriamos sem a transaction, criado uma liga, porem a função acima poderia ter falhado por alguma razão. Ou até mesmo se não tivessemos salvado a liga, ela teria falhado por conta que a liga que passamos no parametro, não existe.
+
+        transaction.Commit(); // <- Caso nenhum erro ocorra, ai sim salvamos no banco de dados.
+        
+    } catch (exepction)
+    {
+        transaction.Rollback(); // <- Cancela as alterações
+    }
+}
+```
+  
+Ou caso queremos salvar um _snapshot_ de algo que fizemos, e outra parte do codigo falhou:  
+
+```c#
+public async Task AddNewLeague()
+{
+    try
+    {
+        var transaction = _context.Database.BeginTransaction(); // <- Isto é como criamos a transaction
+        var league = new League (parametros);
+        await _context.AddAsync(league);
+        await _context.SaveChangesAsync(league);
+
+        await transaction.CreateSavepointAsync("Nome do Savepoint");
+
+        await AddTeamsWithLeague(league); // <- Esta função depende que a liga exista, por isto criamos e salvamos a mesma antes.
+
+        await _context.SaveChangesAsync(); // <- Supor que aqui falhe, teriamos sem a transaction, criado uma liga, porem a função acima poderia ter falhado por alguma razão. Ou até mesmo se não tivessemos salvado a liga, ela teria falhado por conta que a liga que passamos no parametro, não existe.
+
+        transaction.Commit(); // <- Caso nenhum erro ocorra, ai sim salvamos no banco de dados.
+
+    } catch (exepction)
+    {
+        transaction.RollbackToSavepointAsync("Nome do Savepoint"); // <- Retorna o estado do banco de dados no momento que salvamos o savepoint
+    }
+}
+```
+
 ### 1.3 Via Dapper
 Nesta seção será demonstrado como fazer CRUD (Acronimo para Create, Read, Update, Delete), em uma Web API, utilizando Dapper.  
 

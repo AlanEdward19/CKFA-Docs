@@ -19,7 +19,7 @@ Boa sorte
 
 &nbsp;&nbsp;&nbsp;Computação ubíqua tem como objetivo tornar a interação humano computador invisível, ou seja, integrar a informática com as ações e comportamentos naturais das pessoas. Não invisível como se não pudesse ver, mas, sim de uma forma que as pessoas nem percebam que estão dando comandos a um computador, mas como se tivessem conversando com alguém. Além disso, os computadores teriam sistemas inteligentes que estariam conectados ou procurando conexão o tempo todo, dessa forma tornando-se assim onipresente.
 
-*fonte : https://pt.wikipedia.org/wiki/Computa%C3%A7%C3%A3o_ub%C3%ADqua*
+[Fonte](https://pt.wikipedia.org/wiki/Computa%C3%A7%C3%A3o_ub%C3%ADqua*)
 
 &nbsp;&nbsp;&nbsp;Em outras a Linguagem Ubíqua permite que possamos manter a comunicação da equipe mais padronizada e que possamos nos "comunicar" da mesma forma via código, nomeação de campos e variáveis e por assim vai.
 

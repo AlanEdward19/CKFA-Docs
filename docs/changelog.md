@@ -13,7 +13,7 @@ No dia 02/11/2022 foram adicionadas:
 -  Informações sobre desenvolvimento _DDD_.  
 -  Adicionado nova aba, para futuras informações sobre microserviços.
 
-## 1.0.1 - 05/11/2022
+## 2.0.0 - 05/11/2022
 
 ### Informações sobre MVC
 
@@ -24,3 +24,14 @@ No dia 05/11/2022 foram adicionadas:
 -  Pagina de padrão de arquitetura MVC.  
 -  Informações sobre desenvolvimento _MVC_.  
 -  Consertado indices errados na pagina de _DDD_.
+
+## 3.0.0 - 06/11/2022
+
+### Informações sobre TDD
+
+Nesta data, foram adicionadas informações sobre o padrão de desenvolvimento TDD.  
+
+No dia 06/11/2022 foram adicionadas:  
+  
+-  Pagina de padrão de desenvolvimento TDD.  
+-  Informações sobre desenvolvimento _TDD_.  

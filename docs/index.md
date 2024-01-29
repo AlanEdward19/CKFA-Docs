@@ -28,8 +28,42 @@ Boa sorte
 
 &nbsp;&nbsp;&nbsp;Os topicos, estão estruturados da seguinte forma:
 
-_Design Patterns_ onde explico cada tipo de padronização estrutural de código que eu ja venha a ter testado ou estudado sobre, maioria se não todos, estarão codificados em C#.
+### _Design Patterns_ 
 
-_Presets_ onde forneço diversos _presets_ criados por mim mesmo em diversas linguagens, com o intuito de facilitar e acelerar o desenvolvimento de algo que ja fiz, afinal não precisamos inventar a roda a todo momento.
+#### O que são?
+São padrões de projeto, uma abordagem já validadas para resolução de um problema ou implementação.
 
-_Tecnologias_ onde explico resumidamente algo sobre cada tecnologia que venha a ser estudada por mim. Neste cada linguagem terá um topico, acompanhado se possivel de bibliotecas que ja utilizei, e frameworks se for o caso.
+Dependendo do contexto, pode necessitar de uma adaptação para utilizar.
+
+Em algumas situações pode-se  haver múltiplas opções de qual Design Pattern utilizar para resolver seu problema.
+
+##### Tipos de Design Patterns
+
+Existem 26 Design Patterns divididos em 3 tipos principais:
+
+###### Creational
+
+Utilizados para criação e instâncias de classes. Com objetivo de melhorar a maneira de se criar essas instancias de acordo com a situação específica, reduzindo a complexidade envolvida
+
+###### Structural
+
+Utilizados para lidar com a estrutura e composição de classes, aumentando suas capacidades e mantendo o código com boa manutenção e legibilidade
+
+###### Behavioral
+
+Utilizados para comunicação e comportamento de uma classe em relação a outra
+
+#### Como Utilizar
+Estão disponibilizados cada tipo de padronização estrutural de código que eu ja venha a ter testado ou estudado sobre, maioria se não todos, estarão codificados em C#.
+
+### _Presets_ 
+
+#### O que são?
+Códigos completos ou partes de algo que ja desenvolvi, com o intuito de facilitar e acelerar o desenvolvimento de algo que ja fiz, afinal não precisamos inventar a roda a todo momento.
+
+#### Como Utilizar
+Forneço diversos _presets_ criados por mim mesmo em diversas linguagens, alguns completos e outros componentes que podem ser utilizados em outros lugares. O intuito é facilitar a resolução de problemas semelhantes; O código será disponibilizado e é de livre uso de quem quiser copiar.
+
+### _Tecnologias_ 
+#### O que são?
+Explico resumidamente algo sobre cada tecnologia que venha a ser estudada por mim. Neste cada linguagem terá um topico, acompanhado se possivel de bibliotecas que ja utilizei, e frameworks se for o caso.

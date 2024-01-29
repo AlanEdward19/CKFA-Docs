@@ -50,22 +50,23 @@ nav:
     - Inicio: 'index.md'
     - Alterações: 'changelog.md'
 
-    - Development Patterns:
-      - TDD : '1.0/tdd-pattern.md'
-
-    - Architecture patterns:
+    - Padrões de Arquitetura:
       - DDD: '1.0/ddd-patern.md'
+      - EDA : '1.0/eda-patern.md'
       - MVC : '1.0/mvc-pattern.md'
+
+    - Padrões de Desenvolvimento:
+      - TDD : '1.0/tdd-pattern.md'
     
     - Design Patterns:
       - Repository: '1.0/repository-pattern.md'
 
-      - Creational Pattern (Não implementado ainda):
+      - Creational Pattern:
         - Abstract Factory : '1.0/creational pattern/abstract-pattern.md'
         - Builder : '1.0/creational pattern/builder-pattern.md'
         - Factory Method : '1.0/creational pattern/factory-method-pattern.md'
-        - Prototype : '1.0/creational pattern/prototype-pattern.md'
-        - Singleton : '1.0/creational pattern/singleton-pattern.md'
+        - Prototype (Não implementado ainda): '1.0/creational pattern/prototype-pattern.md'
+        - Singleton (Não implementado ainda): '1.0/creational pattern/singleton-pattern.md'
 
       - Structural Patterns (Não implementado ainda):
         - Adapter : '1.0/structural pattern/adapter-pattern.md'
@@ -137,8 +138,10 @@ nav:
         - Criação de Index: 'SQL/create-index.md'
         - Banco não relacional : 'SQL/non-relational-database.md'
         - Banco relacional : 'SQL/relational-database.md'
+
+      - SOAP vs REST: '1.0/SoapVsRest.md'
       
       - Logica:
         - Estrutura de dados: 'logic/data-structure.md'
       
-      - Microserviços: ''
+      - Microserviços: '1.0/microservices.md'
